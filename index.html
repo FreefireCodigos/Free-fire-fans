@@ -259,7 +259,50 @@ Finalmente, una buena rotación por el mapa, evitar enfrentamientos innecesarios
 </div>
 </div>
 </section>
-     
+<script>
+function startGenerator(e){
+  e.preventDefault(); // evita recarga
+
+  const progressContainer = document.getElementById("progressContainer");
+  const progressFill = document.getElementById("progressFill");
+  const result = document.getElementById("result");
+  const collectedData = document.getElementById("collectedData");
+
+  // Reset
+  result.style.display = "none";
+  progressContainer.style.display = "block";
+  progressFill.style.width = "0%";
+  progressFill.innerText = "0%";
+
+  let progress = 0;
+
+  const interval = setInterval(() => {
+    progress += 10;
+    progressFill.style.width = progress + "%";
+    progressFill.innerText = progress + "%";
+
+    if(progress >= 100){
+      clearInterval(interval);
+      progressContainer.style.display = "none";
+
+      const id = document.getElementById("playerId").value;
+      const dpi = document.getElementById("dpi").value;
+      const sens = document.getElementById("sensitivity").value;
+      const diamonds = document.getElementById("diamonds").value;
+
+      collectedData.innerHTML = `
+        ID: <b>${id}</b><br>
+        DPI: <b>${dpi}</b><br>
+        Sensibilidad: <b>${sens}</b><br>
+        Diamantes: <b>${diamonds}</b>
+      `;
+
+      result.style.display = "block";
+    }
+  }, 300);
+}
+</script>
+
 <!-- ROBLOX -->
 <section id="roblox">
 <h2>Roblox</h2>
